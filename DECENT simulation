@@ -5,9 +5,9 @@ import math
 
 # Adjust the variables below to simulate [simulations] amount of networks with [nodes] density (nodes/km2)
 # where each node has a transmission range of [transmissionRange].
-nodes = 6000 
-transmissionRange = 10
-simulations = 5
+nodes = 2000 
+transmissionRange = 25
+simulations = 100
 
 # List of results (maximum clique in each simulation)
 cliques = []

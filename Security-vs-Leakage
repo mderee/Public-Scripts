@@ -1,0 +1,37 @@
+import math
+
+# How many guesses does an adversary, on average, have to try to find the correct key (probability 2^-n)?
+# Parameters (Adversary Bit Estimation Accuracy, Range of Key Lengths).
+est_Accuracy = 0.6
+min_keySize = 1
+max_keySize = 128
+
+# Computes the Bit Security level for all key lengths in the pre-selected range.
+for keySize in range(min_keySize, max_keySize + 1):
+
+    # Reset the average number of guesses that an adversary needs to try to find the correct key.
+    guesses = 0
+
+    # Reset the indexes of the guessed keys (in the range 1 to 2^n).
+    sum_lowerBound = 1
+    sum_upperBound = 0
+
+    for bits_false in range(0, keySize + 1):
+        # Estimates the number of keys of length [n] in which [0 to n] bits were guessed (in)correctly
+        # (i.e., binomial coefficient).
+        value = math.comb(keySize, bits_false)
+
+        # Sets and sums the indexes of the guesses that are gonna be taken place with the current most likely keys.
+        sum_upperBound = sum_upperBound + value
+        summation = sum(range(sum_lowerBound, sum_upperBound + 1))
+
+        # Increases the number of guesses required by an adversary when trying the set of most likely, remaining, keys.
+        guesses = guesses + summation * leakage**(keySize-bits_false) * (1-leakage)**bits_false
+
+        # Prepares the indexes for the next round of adversarial guesses.
+        sum_lowerBound = sum_lowerBound + value
+
+    # Computes and prints the bit security based on the average number of guesses that an adversary has to try to
+    # find the correct key.
+    bitSecurity = math.log2(2*guesses-1)
+    print("Key size " + str(keySize) + " with bit-sec: " + str(bitSecurity))

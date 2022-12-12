@@ -26,7 +26,7 @@ for keySize in range(min_keySize, max_keySize + 1):
         summation = sum(range(sum_lowerBound, sum_upperBound + 1))
 
         # Increases the number of guesses required by an adversary when trying the set of most likely, remaining, keys.
-        guesses = guesses + summation * leakage**(keySize-bits_false) * (1-leakage)**bits_false
+        guesses = guesses + summation * est_Accuracy**(keySize-bits_false) * (1-est_Accuracy)**bits_false
 
         # Prepares the indexes for the next round of adversarial guesses.
         sum_lowerBound = sum_lowerBound + value

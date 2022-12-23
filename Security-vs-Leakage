@@ -23,10 +23,10 @@ for keySize in range(min_keySize, max_keySize + 1):
 
         # Sets and sums the indexes of the guesses that are gonna be taken place with the current most likely keys.
         sum_upperBound = sum_upperBound + trialed_keys_in_iteration
-        summation = (sum_lowerBound + sum_upperBound) * (sum_upperBound - sum_lowerBound + 1) / 2
+        ordinality_summation = (sum_lowerBound + sum_upperBound) * (sum_upperBound - sum_lowerBound + 1) / 2
 
         # Increases the number of guesses required by an adversary when trying the set of most likely, remaining, keys.
-        guesses = guesses + summation * est_Accuracy**(keySize-bits_false) * (1-est_Accuracy)**bits_false
+        guesses = guesses + ordinality_summation * est_Accuracy**(keySize-bits_false) * (1-est_Accuracy)**bits_false
 
         # Prepares the indexes for the next round of adversarial guesses.
         sum_lowerBound = sum_lowerBound + trialed_keys_in_iteration

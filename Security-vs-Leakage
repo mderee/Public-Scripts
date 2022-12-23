@@ -4,7 +4,7 @@ import math
 # Parameters (Adversary Bit Estimation Accuracy, Range of Key Lengths).
 est_Accuracy = 0.6
 min_keySize = 1
-max_keySize = 128
+max_keySize = 514
 
 # Computes the Bit Security level for all key lengths in the pre-selected range.
 for keySize in range(min_keySize, max_keySize + 1):
@@ -19,17 +19,17 @@ for keySize in range(min_keySize, max_keySize + 1):
     for bits_false in range(0, keySize + 1):
         # Estimates the number of keys of length [n] in which [0 to n] bits were guessed (in)correctly
         # (i.e., binomial coefficient).
-        value = math.comb(keySize, bits_false)
+        trialed_keys_in_iteration = math.comb(keySize, bits_false)
 
         # Sets and sums the indexes of the guesses that are gonna be taken place with the current most likely keys.
-        sum_upperBound = sum_upperBound + value
-        summation = sum(range(sum_lowerBound, sum_upperBound + 1))
+        sum_upperBound = sum_upperBound + trialed_keys_in_iteration
+        summation = (sum_lowerBound + sum_upperBound) * (sum_upperBound - sum_lowerBound + 1) / 2
 
         # Increases the number of guesses required by an adversary when trying the set of most likely, remaining, keys.
         guesses = guesses + summation * est_Accuracy**(keySize-bits_false) * (1-est_Accuracy)**bits_false
 
         # Prepares the indexes for the next round of adversarial guesses.
-        sum_lowerBound = sum_lowerBound + value
+        sum_lowerBound = sum_lowerBound + trialed_keys_in_iteration
 
     # Computes and prints the bit security based on the average number of guesses that an adversary has to try to
     # find the correct key.

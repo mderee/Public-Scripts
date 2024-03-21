@@ -12,8 +12,9 @@ subsequent iterations trials the set of keys where an additional bit is assumed 
 
 This algorithm is covered and featured in the published research paper below:
 M. de Ree et al., "Bit Security Estimation for Leakage-Prone Key Establishment Schemes," IEEE Communications Letters,
-vol. 27, no. 7, 2023. [DOI: 10.1109/LCOMM.2023.3275647]
+vol. 27, no. 7, pp. 1694-1698, 2023. [DOI: 10.1109/LCOMM.2023.3275647]
 """
+
 
 def Bit_Security_Estimation(seq_length, inference_rate):
     import math
